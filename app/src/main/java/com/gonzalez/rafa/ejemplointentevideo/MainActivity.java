@@ -5,12 +5,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,10 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
     static final int VENGO_DE_LA_CAMARA = 1;
     static final int VENGO_DE_LA_CAMARA_CON_FICHERO = 2;
-    static final int PEDI_PERMISOS_DE_ESCRITURA = 2;
+    static final int PEDI_PERMISOS_DE_ESCRITURA = 3;
     Button captura, captura2;
     VideoView videoVisor;
     String rutaVideoActual;
+    Uri videoUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public void capturarVideo( ) {
+    /*public void capturarVideo( ) {
         Intent intent = new Intent(MediaStore.INTENT_ACTION_VIDEO_CAMERA);
         File ficheroVideo = null;
         try {
@@ -91,11 +94,34 @@ public class MainActivity extends AppCompatActivity {
     }
     File crearFicheroVideo() throws IOException {
         String fechaYHora = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String nombreFichero = "Ejemplo_"+fechaYHora;
+        String nombreFichero = "VideoEjemplo_"+fechaYHora;
         File carpetaParaVideos = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
         File video = File.createTempFile(nombreFichero, ".mp4", carpetaParaVideos);
         rutaVideoActual = video.getAbsolutePath();
         return video;
+    }*/
+    public void capturarVideo() {
+        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            File carpetaParaVideos = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DCIM), "Camera");
+            File videoFile = new File(carpetaParaVideos, "Commons_" + timeStamp + ".mp4");
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                 videoUri = FileProvider.getUriForFile(MainActivity.this,
+                        BuildConfig.APPLICATION_ID + ".provider",videoFile);
+            } else {
+                videoUri = Uri.fromFile(videoFile);
+            }
+
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
+            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+            startActivityForResult(intent, VENGO_DE_LA_CAMARA_CON_FICHERO);
+        } else {
+            Toast.makeText(this, "No tengo programa o cámara", Toast.LENGTH_SHORT).show();
+        }
     }
 
     void pedirPermisoParaEscribirYHacerVideo(){
