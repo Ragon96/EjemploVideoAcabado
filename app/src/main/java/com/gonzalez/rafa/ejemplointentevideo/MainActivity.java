@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     -https://developer.android.com/guide/components/intents-common?hl=es-419
     -https://developer.android.com/training/permissions/requesting?hl=es-419
     */
-
     static final int VENGO_DE_LA_CAMARA_CON_FICHERO = 2;
     static final int PEDIR_PERMISOS_DE_ESCRITURA = 2;
     String rutaFichero;
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-
         captura = findViewById(R.id.bCaptura);
         videoVisor = findViewById(R.id.videoView);
         //Control videoview
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     public void capturarVideo( ) {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         //Elegimos la duracion del video en segundos
-        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT ,5);
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT ,14);
         //Al acabar el tiempo elegido antes paramos el video
         intent.putExtra(MediaStore.EXTRA_FINISH_ON_COMPLETION,false);
 
