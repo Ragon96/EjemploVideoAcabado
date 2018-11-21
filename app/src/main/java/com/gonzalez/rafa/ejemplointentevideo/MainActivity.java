@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     -https://developer.android.com/guide/components/intents-common?hl=es-419
     -https://developer.android.com/training/permissions/requesting?hl=es-419
     */
+    
     static final int VENGO_DE_LA_CAMARA_CON_FICHERO = 2;
     static final int PEDIR_PERMISOS_DE_ESCRITURA = 2;
     String rutaFichero;
