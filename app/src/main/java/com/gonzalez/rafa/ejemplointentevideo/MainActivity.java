@@ -1,10 +1,12 @@
 package com.gonzalez.rafa.ejemplointentevideo;
 
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
@@ -12,12 +14,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         captura.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pedirPermisoParaEscribirYHacerFoto();
+                pedirPermisoParaEscribirYHacerVideo();
             }
         });
     }
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if ((requestCode == VENGO_DE_LA_CAMARA_CON_FICHERO) && (resultCode == RESULT_OK)){
-            Uri uri=Uri.parse(rutaFichero);
+            Uri uri =Uri.parse(rutaFichero);
             videoVisor.setMediaController(control);
             videoVisor.setVideoURI(uri);
             videoVisor.requestFocus();
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         return imagen;
     }
 
-    void pedirPermisoParaEscribirYHacerFoto(){
+    void pedirPermisoParaEscribirYHacerVideo(){
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
