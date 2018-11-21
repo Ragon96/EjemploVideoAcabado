@@ -79,19 +79,19 @@ public class MainActivity extends AppCompatActivity {
     public void capturarVideo( ) {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         //Elegimos la duracion del video en segundos
-        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT ,14);
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT ,5);
         //Al acabar el tiempo elegido antes paramos el video
         intent.putExtra(MediaStore.EXTRA_FINISH_ON_COMPLETION,false);
 
-        File ficheroFoto = null;
+        File ficheroVideo = null;
         try {
-            ficheroFoto = crearFicheroImagen();
+            ficheroVideo = crearFicheroImagen();
             //nos dara la ruta absoluta del fichero
-            rutaFichero=ficheroFoto.getAbsolutePath();
+            rutaFichero=ficheroVideo.getAbsolutePath();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(ficheroFoto));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(ficheroVideo));
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, VENGO_DE_LA_CAMARA_CON_FICHERO);
         }else{
