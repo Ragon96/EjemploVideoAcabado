@@ -80,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         //Elegimos la duracion del video en segundos
         intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT ,5);
-        //Al acabar el tiempo elegido antes paramos el video
+        //Al acabar el tiempo elegido paramos el video
         intent.putExtra(MediaStore.EXTRA_FINISH_ON_COMPLETION,false);
 
         File ficheroVideo = null;
         try {
-            ficheroVideo = crearFicheroImagen();
+            ficheroVideo = crearFicheroVideo();
             //nos dara la ruta absoluta del fichero
             rutaFichero=ficheroVideo.getAbsolutePath();
         } catch (IOException e) {
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    File crearFicheroImagen() throws IOException {
+    File crearFicheroVideo() throws IOException {
         String fechaYHora = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String nombreVideo = "VideoN_"+fechaYHora;
         File carpetaParaVideos = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
