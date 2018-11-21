@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT ,5);
         //Al acabar el tiempo elegido paramos el video
         intent.putExtra(MediaStore.EXTRA_FINISH_ON_COMPLETION,false);
+        videoVisor.start();//para que se reproduzca automaticamente
 
         File ficheroVideo = null;
         try {
